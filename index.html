@@ -74,5 +74,9 @@ snd.onclick=()=>{clearInterval(fadeT);
    fadeT=setInterval(()=>{bgm.volume=Math.min(.6,bgm.volume+.03);if(bgm.volume>=.6)clearInterval(fadeT)},120)}).catch(()=>{});}
  else{fadeT=setInterval(()=>{bgm.volume=Math.max(0,bgm.volume-.05);if(bgm.volume<=0){clearInterval(fadeT);bgm.pause()}},80);
    snd.textContent='♪ 音を聴く';snd.classList.remove('on');}};
+
+function stopBgm(){clearInterval(fadeT);if(!bgm.paused)bgm.pause();bgm.volume=0;snd.textContent='♪ 音を聴く';snd.classList.remove('on');}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopBgm()}); // 画面を切ったり別のアプリに移ったら音を止める
+window.addEventListener('pagehide',stopBgm);
 document.fonts&&document.fonts.ready.then(render);window.addEventListener('resize',render);render();
 </script></body></html>
